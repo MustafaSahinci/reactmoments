@@ -1,11 +1,14 @@
 import axios from 'axios'
 import React from 'react'
-import { Navbar, Container, Nav } from 'react-bootstrap'
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
 import { NavLink } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext'
 import useClickOutsideToggle from '../hooks/useClickOutsideToggle'
 import styles from '../styles/NavBar.module.css'
+import { removeTokenTimestamp } from '../utils/utils'
 import Avatar from './Avatar'
 
 const NavBar = () => {
@@ -18,8 +21,9 @@ const NavBar = () => {
     try {
       await axios.post("dj-rest-auth/logout/");
       setCurrentUser(null);
+      removeTokenTimestamp();
       } catch (err) {
-      console.log(err);
+      // console.log(err);
       }
   }
 
